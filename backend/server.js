@@ -2,17 +2,16 @@ const express = require('express');
 
 const app = express();
 
-const  PORT =3000;
+const  PORT =process.env.PORT || 3001;
 
-app.get('/',(req,res)=>{
+app.get('/api',(req,res)=>{
   
-    res.send('message')
+    res.json({
+        massage: "Hello todosss"
+    })
 
 })
 
-
-
-
 app.listen(PORT,()=>{
-console.log('connect  to port 3000');
+console.log(`connect  to port ${PORT}`);
 })

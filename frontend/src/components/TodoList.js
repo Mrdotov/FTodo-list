@@ -1,8 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 const TodoList = () => {
-    const [todos, setTodos] = useState([]);
-    const [inputValue, setInputValue] = useState('');
+  const [todos, setTodos] = useState([]);
+  const [inputValue, setInputValue] = useState('');
+  const [data, setData] = useState([]);
+
+
   
+  useEffect(() => {
+    fetch('/api')
+    .then((res) => res.json())
+    .then((data) => setData(data.message))
+    .catch((error) => console.error(error));
+  }, []);
+
     const handleKeyDown = (event) => {
       if (event.keyCode === 13) {
         addTodo();
@@ -25,12 +35,12 @@ const TodoList = () => {
     setTodos(updateTodos)
   
   }
-  
-  
+
     return (
       <div className='Todos'>
           <div className='block_todos'>
-            <p>Todo</p>
+          <p>{!data ?  "Loading..."  : data }</p>
+
             <input
               placeholder="Enter..."
               value={inputValue}
