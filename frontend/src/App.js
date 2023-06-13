@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createElement } from 'react';
-
+import appStyle from './App.css'
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
   const [inputValue, setInputValue] = useState('');
@@ -29,24 +29,24 @@ const updateTodos = todos.filter((item)=>item !== todo)
 
 
   return (
-    <div>
-      <h1>Any text</h1>
-
-      <input
-        placeholder="Enter..."
-        value={inputValue}
-        onChange={handleInputChange}
-        onKeyDown={handleKeyDown}
-      />
-      <button onClick={addTodo}>Add</button>
-
-      <ul>
-        {todos.map((todo, index) => (
-          <li key={index}>{todo} <button onClick={()=>DeleteTodo(todo)}>Delete</button></li>
-        ))
-       
-        }
-      </ul>
+    <div className='Todos'>
+        <div className='block_todos'>
+          <p>Todo</p>
+          <input
+            placeholder="Enter..."
+            value={inputValue}
+            onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
+          />
+          <button onClick={addTodo}>Add</button>
+          <ul>
+            {todos.map((todo, index) => (
+              <li key={index}>{todo} <button onClick={()=>DeleteTodo(todo)}>Delete</button></li>
+            ))
+          
+            }
+          </ul>
+      </div>
     </div>
   );
 };
