@@ -1,50 +1,59 @@
-import React,{useState, useEffect, } from 'react'
+import React, { useState, useEffect, createElement } from 'react';
 
-// function MyTodos(){
+const TodoList = () => {
+  const [todos, setTodos] = useState([]);
+  const [inputValue, setInputValue] = useState('');
 
-// const [example, setExample] = UseState();
-
-
-// useEffect(()=>{
-//   console.log('Example: ', example);
-// },[example])
-// return (
-//    <input
-//   placeholder="Enter"
-//   value={example}
-//   onChange={(e) => setExample(e.target.value)}
-// />
-// )
-
-// }
-
-
-
-
-
-
-function App() {
-  const [elements, setElements] = useState([]);
-  const [inputValue ,setInputValue] = useState('');
-
-const handleInputChange=(event)=>{
-  setInputValue(event.target.value)
-}
-
-  const addElement = () => {
-    const newElement = <div key={elements.length}>New Element</div>;
-    setElements([...elements, newElement]);
+  const handleKeyDown = (event) => {
+    if (event.keyCode === 13) {
+      addTodo();
+    }
   };
 
-  return (
-    <div className="App">
-        <input type="text" value={inputValue} onChange={handleInputChange} />
-        <p>Input value:{inputValue}</p>
+  const addTodo = () => {
+    if (inputValue.trim() !== '') {
+      setTodos([...todos, inputValue]);
+      setInputValue('');
+    }
+  };
 
-      <button onClick={addElement}>Add Element</button>
-      {elements}
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
+  };
+
+const DeleteTodo=(todo)=>{
+const updateTodos = todos.filter((item)=>item !== todo)
+  setTodos(updateTodos)
+
+}
+
+
+  return (
+    <div>
+      <h1>Any text</h1>
+
+      <input
+        placeholder="Enter..."
+        value={inputValue}
+        onChange={handleInputChange}
+        onKeyDown={handleKeyDown}
+      />
+      <button onClick={addTodo}>Add</button>
+
+      <ul>
+        {todos.map((todo, index) => (
+          <li key={index}>{todo} <button onClick={()=>DeleteTodo(todo)}>Delete</button></li>
+        ))
+       
+        }
+      </ul>
     </div>
   );
+};
+
+function App(){
+  return <TodoList />;
+ 
 }
 
 
